@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Failure Atlas | Mathematics, Physics, and Computer Science</title>
+  <meta name="description" content="A card atlas for open and solved problems across mathematics, physics, and computer science, including failed attempts, barriers, partial results, and sources." />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="Failure Atlas home">
+      <img class="brand-logo" src="assets/failure-atlas-logo.png" alt="Failure Atlas" />
+    </a>
+    <nav aria-label="Primary navigation">
+      <button type="button" class="nav-tab active" data-view="overview">Overview</button>
+      <button type="button" class="nav-tab" data-view="cards">Cards</button>
+      <a class="nav-tab" href="domain-math.html">Domains</a>
+      <button type="button" class="nav-tab" data-view="failure">Failure</button>
+      <button type="button" class="nav-tab" data-view="graph">Graph</button>
+      <button type="button" class="nav-tab" data-view="timeline">Timeline</button>
+      <button type="button" class="nav-tab" data-view="contribution">Contribute</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Overview: hero, featured landmarks, domain cards, and the large atlas image. -->
+    <div class="view-panel active" id="overviewView" data-view-panel="overview">
+      <section class="hero section-shell" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Mathematics · Computer science · Physics</p>
+          <h1 id="hero-title">Map the hidden history of hard problems.</h1>
+          <p class="hero-summary" id="researchNote">Problem cards, failed routes, partial results, and source trails in one searchable atlas.</p>
+          <div class="hero-actions" aria-label="Hero actions">
+            <button type="button" class="button primary" data-view="cards" id="exploreButton">Explore the atlas</button>
+            <button type="button" class="button secondary" data-view="graph">Open the graph</button>
+          </div>
+        </div>
+        <aside class="hero-board" aria-label="Atlas highlights">
+          <article class="mini-card tall">
+            <span class="mini-label">Core object</span>
+            <h2>Failure card</h2>
+            <p>What was tried, where it stalled, and what survived.</p>
+          </article>
+          <article class="mini-card">
+            <span class="mini-label">Problem layer</span>
+            <strong id="heroProblemCount">0</strong>
+            <p>problem cards</p>
+          </article>
+          <article class="mini-card">
+            <span class="mini-label">Failure layer</span>
+            <strong id="heroFailureCount">0</strong>
+            <p>failure / obstruction cards</p>
+          </article>
+        </aside>
+      </section>
+
+      <section class="section-shell featured-section" aria-labelledby="featured-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">Featured problems</p>
+            <h2 id="featured-title">Start with the landmarks.</h2>
+          </div>
+          <button type="button" class="button secondary" data-view="cards">View all cards</button>
+        </div>
+        <div class="featured-grid" id="featuredGrid"></div>
+      </section>
+
+      <section class="section-shell category-showcase" aria-labelledby="category-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">Domains</p>
+            <h2 id="category-title">Browse by field.</h2>
+          </div>
+        </div>
+        <div class="category-grid">
+          <article class="category-card">
+            <img class="category-media" src="assets/category-math.png" alt="Mathematics category illustration" />
+            <div class="category-copy">
+              <div class="meta-row">
+                <span class="domain-pill math">Mathematics</span>
+                <span class="category-stat" id="countMath">0 cards</span>
+              </div>
+              <p>Number theory, geometry, topology, algebra, analysis, combinatorics, and solved problems.</p>
+              <a class="button secondary" href="domain-math.html">Open Mathematics page</a><button type="button" class="button secondary" data-domain-target="math" data-view-target="cards">Browse cards</button>
+            </div>
+          </article>
+          <article class="category-card">
+            <img class="category-media" src="assets/category-cs.png" alt="Computer science category illustration" />
+            <div class="category-copy">
+              <div class="meta-row">
+                <span class="domain-pill cs">Computer Science</span>
+                <span class="category-stat" id="countCs">0 cards</span>
+              </div>
+              <p>Complexity, algorithms, cryptography, logic, verification, machine learning, and lower bound barriers.</p>
+              <a class="button secondary" href="domain-cs.html">Open Computer Science page</a><button type="button" class="button secondary" data-domain-target="cs" data-view-target="cards">Browse cards</button>
+            </div>
+          </article>
+          <article class="category-card">
+            <img class="category-media" src="assets/category-physics.png" alt="Physics category illustration" />
+            <div class="category-copy">
+              <div class="meta-row">
+                <span class="domain-pill physics">Physics</span>
+                <span class="category-stat" id="countPhysics">0 cards</span>
+              </div>
+              <p>Particle physics, cosmology, astronomy, condensed matter, and failure histories of experimental programs.</p>
+              <a class="button secondary" href="domain-physics.html">Open Physics page</a><button type="button" class="button secondary" data-domain-target="physics" data-view-target="cards">Browse cards</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-shell brand-feature" aria-label="Mega graph preview">
+        <img src="assets/atlas-mega-graph.png" alt="A large visual map of interconnected problems across mathematics, computer science, and physics" />
+      </section>
+
+      <section class="section-shell split-intro" id="mission" aria-labelledby="mission-title">
+        <div>
+          <p class="eyebrow">Structured memory</p>
+          <h2 id="mission-title">A map of attempts, not just answers.</h2>
+        </div>
+        <p>Failure Atlas keeps the useful negative space of research visible: failed approaches, surviving partial results, and nearby problems that share the same methods.</p>
+      </section>
+    </div>
+
+    <!-- Cards: searchable, filterable atlas of all problem cards. -->
+    <div class="view-panel" id="cardsView" data-view-panel="cards">
+      <section class="section-shell" id="problemAtlas" aria-labelledby="atlas-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Problem atlas</p>
+            <h2 id="atlas-title">Problem cards</h2>
+          </div>
+          <div class="controls" aria-label="Card filters">
+            <label class="search-wrap" for="problemSearch">
+              <span>Search</span>
+              <input id="problemSearch" type="search" placeholder="Search problems, fields, methods…" autocomplete="off" />
+            </label>
+          </div>
+        </div>
+        <div class="filter-stack">
+          <div class="filter-buttons domain-filters" role="group" aria-label="Filter by domain">
+            <button type="button" class="domain-filter active" data-domain="all">All domains</button>
+            <button type="button" class="domain-filter" data-domain="math">Mathematics</button>
+            <button type="button" class="domain-filter" data-domain="cs">Computer Science</button>
+            <button type="button" class="domain-filter" data-domain="physics">Physics</button>
+          </div>
+          <div class="filter-buttons" role="group" aria-label="Filter by status">
+            <button type="button" class="filter active" data-filter="all">All statuses</button>
+            <button type="button" class="filter" data-filter="unsolved">Open</button>
+            <button type="button" class="filter" data-filter="solved">Solved</button>
+            <button type="button" class="filter" data-filter="disproved">Disproved</button>
+          </div>
+        </div>
+        <p class="results-meta" id="resultsMeta"></p>
+        <div class="problem-grid" id="problemGrid" aria-live="polite"></div>
+      </section>
+    </div>
+
+    <!-- Failure: vocabulary and counts for stalled proof routes. -->
+    <div class="view-panel" id="failureView" data-view-panel="failure">
+      <section class="section-shell" id="taxonomy" aria-labelledby="taxonomy-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">Failure modes</p>
+            <h2 id="taxonomy-title">A legend for stalled proof routes.</h2>
+          </div>
+        </div>
+        <div class="taxonomy-grid" id="taxonomyGrid"></div>
+      </section>
+    </div>
+
+    <!-- Graph: global relation graph, local attempt graph, force graph, and bridge matrix. -->
+    <div class="view-panel" id="graphView" data-view-panel="graph">
+      <section class="section-shell graph-section" aria-labelledby="graph-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">Graph layer</p>
+            <h2 id="graph-title">Explore how problems share methods and barriers.</h2>
+          </div>
+        </div>
+
+        <div class="graph-controls section-card">
+          <div class="control-group">
+            <label for="graphDomain">Domain</label>
+            <select id="graphDomain">
+              <option value="all">All domains</option>
+              <option value="math">Mathematics</option>
+              <option value="cs">Computer Science</option>
+              <option value="physics">Physics</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label for="graphEdgeMode">Edges</label>
+            <select id="graphEdgeMode">
+              <option value="explicit">Curated relations only</option>
+              <option value="shared">Shared methods only</option>
+              <option value="both" selected>Relations + shared methods</option>
+            </select>
+          </div>
+          <label class="toggle-wrap"><input type="checkbox" id="graphNeighborhood" /> Focus on selected neighborhood</label>
+          <label class="toggle-wrap"><input type="checkbox" id="graphLabels" /> Always show labels</label>
+          <label class="search-wrap graph-search" for="graphSearch">
+            <span>Search graph</span>
+            <input id="graphSearch" type="search" placeholder="Problem, method, field…" autocomplete="off" />
+          </label>
+        </div>
+
+        <div class="graph-stack">
+          <article class="graph-card">
+            <div class="graph-copy">
+              <h3>Global atlas graph</h3>
+              <p>Use the controls to compare fields, relation types, and shared attempted methods.</p>
+              <div class="graph-legend">
+                <span><i class="legend-dot math"></i> Mathematics</span>
+                <span><i class="legend-dot cs"></i> Computer Science</span>
+                <span><i class="legend-dot physics"></i> Physics</span>
+                <span><i class="legend-line explicit"></i> Curated relation</span>
+                <span><i class="legend-line shared"></i> Shared method</span>
+              </div>
+              <p class="hint">Click a node to open its card and update the explorer below.</p>
+            </div>
+            <div class="graph-wrap mega" id="graphWrap" aria-label="Interactive global graph"></div>
+          </article>
+
+          <article class="graph-card attempt-card">
+            <div class="graph-copy">
+              <h3>Selected problem explorer</h3>
+              <p id="attemptGraphTitle">Open a problem to inspect tried methods, partial successes, failures, and neighboring cards.</p>
+              <p>Click a method, partial result, failure, or source to inspect the local proof history.</p>
+            </div>
+            <div class="attempt-layout">
+              <div class="graph-wrap attempt" id="attemptGraphWrap" aria-label="Selected problem attempt graph"></div>
+              <aside class="attempt-inspector" id="attemptInspector" aria-live="polite"></aside>
+            </div>
+          </article>
+
+          <article class="graph-card force-card">
+            <div class="graph-copy">
+              <h3>Research object graph</h3>
+              <p>Drag the nodes to inspect how problems, methods, partial results, failures, sources, and bridge families connect.</p>
+              <div class="force-controls">
+                <label>Depth
+                  <select id="forceDepth">
+                    <option value="1">1 hop</option>
+                    <option value="2" selected>2 hops</option>
+                  </select>
+                </label>
+                <label><input type="checkbox" class="force-type" value="method" checked /> Methods</label>
+                <label><input type="checkbox" class="force-type" value="result" checked /> Results</label>
+                <label><input type="checkbox" class="force-type" value="failure" checked /> Failures</label>
+                <label><input type="checkbox" class="force-type" value="source" /> Sources</label>
+                <label><input type="checkbox" class="force-type" value="bridge" checked /> Bridges</label>
+                <button type="button" class="button small secondary" id="forceRestart">Restart layout</button>
+              </div>
+              <div class="graph-legend">
+                <span><i class="legend-node problem"></i> Problem</span>
+                <span><i class="legend-node method"></i> Method / attempt</span>
+                <span><i class="legend-node result"></i> Worked partially</span>
+                <span><i class="legend-node failure"></i> Failed / blocked</span>
+                <span><i class="legend-node source"></i> Source</span>
+                <span><i class="legend-node bridge"></i> Bridge family</span>
+              </div>
+            </div>
+            <div class="force-layout">
+              <div class="graph-wrap force" id="forceGraphWrap" aria-label="Research object graph"></div>
+              <aside class="attempt-inspector force-inspector" id="forceInspector" aria-live="polite"></aside>
+            </div>
+          </article>
+
+          <article class="graph-card bridge-matrix-card">
+            <div class="graph-copy">
+            <h3>Bridge matrix</h3>
+              <p>Bridge families show methods that travel across fields: topology in CS, spectral methods in graphs and physics, SAT and formalization in finite combinatorics, and more.</p>
+              <div class="bridge-toolbar">
+                <label>Bridge family
+                  <select id="bridgeSelect"></select>
+                </label>
+              <label><input type="checkbox" id="bridgeOnlyCrossDomain" checked /> Show bridges across domains first</label>
+              </div>
+            </div>
+            <div class="bridge-layout">
+              <div class="bridge-family-grid" id="bridgeFamilyGrid" aria-label="Bridge families"></div>
+              <aside class="attempt-inspector bridge-inspector" id="bridgeInspector" aria-live="polite"></aside>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <!-- Timeline: selected breakthroughs, barriers, and negative results. -->
+    <div class="view-panel" id="timelineView" data-view-panel="timeline">
+      <section class="section-shell timeline-section" aria-labelledby="timeline-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">History</p>
+            <h2 id="timeline-title">Timeline of breakthroughs, barriers, and negative results.</h2>
+          </div>
+        </div>
+        <div class="timeline-intro section-card">
+          <h3>Selected milestones, not a definitive ranking.</h3>
+          <p>This timeline highlights sourced events already connected to atlas cards: breakthroughs, impossibility results, independence phenomena, barriers, and solved cases.</p>
+        </div>
+        <div class="filter-buttons timeline-filters" role="group" aria-label="Filter timeline by domain">
+          <button type="button" class="timeline-filter active" data-timeline-domain="all">All</button>
+          <button type="button" class="timeline-filter" data-timeline-domain="math">Mathematics</button>
+          <button type="button" class="timeline-filter" data-timeline-domain="cs">Computer Science</button>
+          <button type="button" class="timeline-filter" data-timeline-domain="physics">Physics</button>
+        </div>
+        <div class="timeline-grid" id="timelineGrid"></div>
+      </section>
+    </div>
+
+    <!-- Contribute: local preview/export for proposed card edits. -->
+    <div class="view-panel" id="contributionView" data-view-panel="contribution">
+      <section class="section-shell submit-section" id="submit" aria-labelledby="submit-title">
+        <div class="submit-copy">
+          <p class="eyebrow">Contribution design</p>
+          <h2 id="submit-title">Every attempted route should have a precise card.</h2>
+          <p>A good entry names the method, states what it proves, identifies the obstruction, and cites the sources that support it.</p>
+        </div>
+        <form class="submit-card" id="contributionForm" aria-label="Submission form">
+          <label>
+            Problem or conjecture
+            <input type="text" name="problem" value="P versus NP" />
+          </label>
+          <label>
+            Domain
+            <select name="domain">
+              <option value="math">Mathematics</option>
+              <option value="cs" selected>Computer Science</option>
+              <option value="physics">Physics</option>
+            </select>
+          </label>
+          <label>
+            Attempt family
+            <input type="text" name="attempt" value="Topological lower bound strategy" />
+          </label>
+          <label>
+            What survived?
+            <textarea name="survived">Even a failed route may produce a useful restricted theorem, a benchmark family, a barrier lemma, or a sharpened conjecture.</textarea>
+          </label>
+          <label>
+            Where does it fail or stall?
+            <textarea name="stalled">The route may hit a named barrier, solve only a toy model, or depend on an unproved reduction. Failure Atlas should store that explicitly.</textarea>
+          </label>
+          <label>
+            Review state
+            <select name="review">
+              <option>Unreviewed community note</option>
+              <option selected>Sourced</option>
+              <option>Domain editor reviewed</option>
+              <option>External expert reviewed</option>
+              <option>Erratum / disputed</option>
+              <option>Quarantined proof claim</option>
+            </select>
+          </label>
+          <button type="button" class="button primary" id="prepareCardButton">Prepare card</button>
+        </form>
+        <article class="submit-preview" id="submissionPreview" aria-live="polite"></article>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- Shared modal used by card clicks, graph nodes, timeline items, and contribution previews. -->
+  <div class="detail-overlay" id="detailOverlay" aria-hidden="true">
+    <div class="detail-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-bar">
+        <div>
+          <p class="eyebrow">Selected problem</p>
+          <h2 id="modalTitle">Card detail</h2>
+        </div>
+        <button type="button" class="icon-button" id="closeDetail" aria-label="Close detail">×</button>
+      </div>
+      <div class="detail-panel" id="detailPanel"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p><strong>Failure Atlas</strong> · a research index for discussion, review workflows, and problem graph design.</p>
+    <p>Made with Codex &amp; Robert Joseph George.</p>
+  </footer>
+
+  <script src="assets/data-chunks/data-part-01.js"></script>
+  <script src="assets/data-chunks/data-part-02.js"></script>
+  <script src="assets/data-chunks/data-part-03.js"></script>
+  <script src="assets/data-chunks/data-part-04.js"></script>
+  <script src="assets/data-chunks/data-part-05.js"></script>
+  <script src="assets/data-chunks/data-part-06.js"></script>
+  <script src="assets/data-chunks/data-part-07.js"></script>
+  <script src="assets/data-chunks/data-part-08.js"></script>
+  <script src="assets/data-chunks/data-part-09.js"></script>
+  <script src="assets/data-chunks/data-part-10.js"></script>
+  <script src="assets/data-loader.js"></script>
+  <script src="assets/script.js"></script>
+</body>
+</html>

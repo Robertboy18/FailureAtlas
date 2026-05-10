@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Failure Atlas — Physics</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body data-domain="physics">
+  <div class="grain" aria-hidden="true"></div>
+  <header class="site-header" id="top">
+    <a class="brand" href="index.html"><img class="brand-logo" src="assets/failure-atlas-logo.png" alt="Failure Atlas" /></a>
+    <nav aria-label="Primary navigation">
+      <a class="nav-tab" href="index.html">Overview</a>
+      <a class="nav-tab" href="domain-math.html">Mathematics</a>
+      <a class="nav-tab" href="domain-cs.html">Computer Science</a>
+      <a class="nav-tab" href="domain-physics.html">Physics</a>
+    </nav>
+  </header>
+  <!-- Domain page shell: hero stats, scoped cards, scoped method graph, and timeline. -->
+  <main class="domain-layout">
+    <section class="section-shell domain-hero">
+      <div class="hero-copy">
+        <h1 id="domainTitle">Physics Atlas</h1>
+        <div class="domain-mini-grid">
+          <article class="mini-card"><span class="mini-label">Problem cards</span><strong id="domainCount">0</strong></article>
+          <article class="mini-card"><span class="mini-label">Failures</span><strong id="domainFailureCount">0</strong></article>
+          <article class="mini-card"><span class="mini-label">Sources</span><strong id="domainSourceCount">0</strong></article>
+        </div>
+      </div>
+      <img id="domainImage" alt="Physics category artwork" />
+    </section>
+    <section class="section-shell">
+      <div class="section-heading">
+        <div><p class="eyebrow">Cards</p><h2>Problem cards</h2></div>
+        <div class="controls"><label class="search-wrap"><span>Search</span><input id="domainSearch" type="search" placeholder="Search this domain…" /></label><select id="domainStatus"><option value="all">All statuses</option><option value="unsolved">Open</option><option value="solved">Solved</option><option value="disproved">Disproved</option></select></div>
+      </div>
+      <div class="problem-grid" id="domainCards"></div>
+    </section>
+    <section class="section-shell graph-section">
+      <div class="section-heading compact"><div><p class="eyebrow">Domain method graph</p><h2>Problem cards linked through shared method nodes.</h2></div></div>
+      <div class="graph-card"><div class="graph-wrap force" id="domainGraph"></div></div>
+    </section>
+    <section class="section-shell timeline-section">
+      <div class="section-heading compact"><div><p class="eyebrow">Timeline</p><h2>Breakthroughs, barriers, and sourced events.</h2></div></div>
+      <div class="timeline-grid" id="domainTimeline"></div>
+    </section>
+  </main>
+  <div class="detail-overlay" id="domainDetailOverlay" aria-hidden="true">
+    <div class="detail-dialog" role="dialog" aria-modal="true" aria-labelledby="domainModalTitle">
+      <div class="modal-bar">
+        <div>
+          <p class="eyebrow">Selected problem</p>
+          <h2 id="domainModalTitle">Problem detail</h2>
+        </div>
+        <button type="button" class="icon-button" id="closeDomainDetail" aria-label="Close detail">×</button>
+      </div>
+      <div class="detail-panel" id="domainDetailPanel"></div>
+    </div>
+  </div>
+  <script src="assets/data-chunks/data-part-01.js"></script>
+  <script src="assets/data-chunks/data-part-02.js"></script>
+  <script src="assets/data-chunks/data-part-03.js"></script>
+  <script src="assets/data-chunks/data-part-04.js"></script>
+  <script src="assets/data-chunks/data-part-05.js"></script>
+  <script src="assets/data-chunks/data-part-06.js"></script>
+  <script src="assets/data-chunks/data-part-07.js"></script>
+  <script src="assets/data-chunks/data-part-08.js"></script>
+  <script src="assets/data-chunks/data-part-09.js"></script>
+  <script src="assets/data-chunks/data-part-10.js"></script>
+  <script src="assets/data-loader.js"></script>
+  <script src="assets/domain-page.js"></script>
+</body>
+</html>
